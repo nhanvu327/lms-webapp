@@ -1,8 +1,13 @@
 import React from "react";
-import { Spin } from 'antd';
+import { LoginForm, LogoBanner } from "../../components";
 
 function LoginContainer() {
-  return <div><Spin /></div>;
+  return (
+    <div>
+      <LogoBanner />
+      <LoginForm handleSubmit={values => console.log(values)} />
+    </div>
+  );
 }
 
 export default LoginContainer;
