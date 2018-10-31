@@ -17,7 +17,7 @@ class GetUserMedia {
       const stream = await navigator.mediaDevices.getUserMedia(
         this.constraints
       );
-      const videoTracks = stream.getVideoTracks();
+      // const videoTracks = stream.getVideoTracks();
       this.videoElement.srcObject = stream;
     } catch (error) {
       // if (error.name === "ConstraintNotSatisfiedError") {

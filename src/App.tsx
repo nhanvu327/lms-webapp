@@ -1,12 +1,18 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./views/Home";
+import React, { Component, Suspense } from "react";
+import { Spin } from 'antd';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Home, Login } from "./routes";
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <Route exact path="/" component={Home} />
+        <Suspense fallback={<Spin />}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+          </Switch>
+        </Suspense>
       </Router>
     );
   }
