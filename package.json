@@ -1,7 +1,8 @@
 {
   "name": "lms-webapp",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "author": "Nhan Vu <nhanvu327@gmail.com>",
   "dependencies": {
     "antd": "^3.10.1",
     "react": "^16.7.0-alpha.0",
