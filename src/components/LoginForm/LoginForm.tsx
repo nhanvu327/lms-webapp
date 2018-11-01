@@ -1,16 +1,14 @@
 import React from "react";
-import { IThemeInterface, withTheme } from "../../theme";
 import { Form, Input, Icon, Checkbox } from "antd";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import {
-  FormStyled,
-  ForgotPassword,
   LoginButton,
   OtherSignIn,
   OtherSignInIcon,
-  OtherActions,
-  SignUp
+  OtherActions
 } from "./styles/LoginForm";
+import { IThemeInterface, withTheme } from "../../theme";
 
 const FormItem = Form.Item;
 
@@ -33,7 +31,7 @@ const LoginForm: React.StatelessComponent<Props> = props => {
         password: ""
       }}
       render={({ handleChange }) => (
-        <FormStyled>
+        <form>
           <FormItem>
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -51,23 +49,21 @@ const LoginForm: React.StatelessComponent<Props> = props => {
               onChange={handleChange}
             />
           </FormItem>
-          <FormItem>
-            <OtherActions>
-              <Checkbox>Remember me</Checkbox>
-              <ForgotPassword href="/">Forgot password</ForgotPassword>
-            </OtherActions>
-            <LoginButton type="primary" htmlType="submit">
-              Log in
-            </LoginButton>
-            <OtherActions>
-              <OtherSignIn>
-                Sign in with <OtherSignInIcon type="facebook" theme="filled" />
-                <OtherSignInIcon type="google" theme="outlined" />
-              </OtherSignIn>
-              <SignUp href="">Sign up</SignUp>
-            </OtherActions>
-          </FormItem>
-        </FormStyled>
+          <OtherActions>
+            <Checkbox>Remember me</Checkbox>
+            <Link to="/">Forgot password</Link>
+          </OtherActions>
+          <LoginButton type="primary" htmlType="submit">
+            Log in
+          </LoginButton>
+          <OtherActions>
+            <OtherSignIn>
+              Sign in with <OtherSignInIcon type="facebook" theme="filled" />
+              <OtherSignInIcon type="google" theme="outlined" />
+            </OtherSignIn>
+            <Link to="/sign-up">Sign up</Link>
+          </OtherActions>
+        </form>
       )}
     />
   );

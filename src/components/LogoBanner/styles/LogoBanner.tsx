@@ -7,7 +7,6 @@ export const Logo = styled.div`
 
 export const Wrapper = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
-  max-width: 368px;
 `;
 
 export const SubText = styled.div`

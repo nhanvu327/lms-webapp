@@ -5,11 +5,11 @@ const {
 } = require("customize-cra");
 const rewireLess = require("react-app-rewire-less");
 
-const addReWireLess = () => (config) => {
+const addReWireLess = () => config => {
   config = rewireLess.withLoaderOptions({
     modifyVars: { "@primary-color": "#ff9900" },
     javascriptEnabled: true
-  })(config);
+  })(config, config.mode);
   return config;
 };
 
@@ -18,7 +18,7 @@ module.exports = override(
     "import",
     { libraryName: "antd", libraryDirectory: "es", style: true }
   ]),
-  addBabelPlugin("babel-plugin-styled-components"),
+  addBabelPlugin("styled-components"),
   addBundleVisualizer({
     openAnalyzer: false
   }),

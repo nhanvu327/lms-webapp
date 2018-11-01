@@ -4,17 +4,11 @@ import { NativeButtonProps } from "antd/lib/button/button";
 import { IconProps } from "antd/lib/icon";
 import { Button, Icon } from "antd";
 
-export const FormStyled = styled.form`
-  max-width: 368px;
-`;
-
-export const ForgotPassword = styled.a`
-`;
-
 export const LoginButton = styled<NativeButtonProps>(props => (
   <Button {...props} />
 ))`
   width: 100%;
+  margin: ${({theme}) => theme.spacing.md} 0;
 `;
 
 export const OtherSignIn = styled.div`
@@ -32,5 +26,3 @@ export const OtherActions = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-export const SignUp = styled.a``;
