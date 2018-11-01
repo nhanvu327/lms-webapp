@@ -12,4 +12,6 @@ declare module "react" {
   // if it was resolved. Looks like some changes to the React declarations are
   // in order to support this.
   export function lazy<T>(ctor: () => PromiseLike<T>):  StatelessComponent<RouteComponentProps<any, StaticContext, any>>;
+
+  export function useState(value: any): any;
 }

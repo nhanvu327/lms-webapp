@@ -1,5 +1,6 @@
 import React from "react";
 import { LoginContainer } from "../containers";
+import { LanguageSwitcher } from "../components";
 import BackgroundLarge from "../assets/images/background-large.jpg";
 import BackgroundSmall from "../assets/images/background-small.jpg";
 import styled from "../theme";
@@ -21,6 +22,7 @@ function Login() {
   return (
     <Wrapper>
       <LoginContainer />
+      <LanguageSwitcher isFixed={true} />
     </Wrapper>
   );
 }
