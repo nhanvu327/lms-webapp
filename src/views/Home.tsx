@@ -1,13 +1,11 @@
 import React from "react";
-import { Button } from "antd";
-import CallingScreenContainer from '../containers/CallingScreenContainer/CallingScreenContainer';
-
+import { Link } from "react-router-dom";
 class Home extends React.Component {
   render() {
     return (
       <div>
-        <Button type="primary">Primary</Button>
-        <CallingScreenContainer />
+        <Link to="/login">Go to login page</Link>
+        <Link to="/register">Go to register page</Link>
       </div>
     );
   }
