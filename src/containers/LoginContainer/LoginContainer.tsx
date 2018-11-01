@@ -3,8 +3,7 @@ import { LoginForm, LogoBanner } from "../../components";
 import styled from "../../theme";
 
 const Wrapper = styled.div`
-  max-width: 368px;
-  padding: ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.md};
+  padding: ${({ theme }) => theme.spacing.lg};
   background-color: white;
   border-radius: ${({theme}) => theme.borderRadius.base};
 `;

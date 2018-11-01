@@ -13,6 +13,7 @@ const {
 export interface IThemeInterface {
   color: {
     primary: string;
+    error: string;
   };
   fontSize: {
     sm: string;
@@ -20,6 +21,7 @@ export interface IThemeInterface {
     lg: string;
   };
   spacing: {
+    xxs: string;
     xs: string;
     sm: string;
     md: string;
@@ -41,7 +43,8 @@ export interface IThemeInterface {
 
 export const theme: IThemeInterface = {
   color: {
-    primary: "#ff9900"
+    primary: "#ff9900",
+    error: "#f5222d"
   },
   fontSize: {
     sm: "12px",
@@ -49,6 +52,7 @@ export const theme: IThemeInterface = {
     lg: "16px"
   },
   spacing: {
+    xxs: "4px",
     xs: "8px",
     sm: "12px",
     md: "16px",

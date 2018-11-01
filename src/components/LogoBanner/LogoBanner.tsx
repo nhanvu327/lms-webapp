@@ -4,8 +4,8 @@ import { Logo, Wrapper, SubText } from "./styles/LogoBanner";
 function LogoBanner() {
   return (
     <Wrapper>
-      <Logo>LOGO</Logo>
-      <SubText>Platform to connect seamlessly teachers & students</SubText>
+      <Logo>SmartLearning</Logo>
+      <SubText>Stable - Convenient - Enjoyable</SubText>
     </Wrapper>
   );
 }

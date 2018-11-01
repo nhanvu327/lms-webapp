@@ -61,7 +61,7 @@ const LoginForm: React.StatelessComponent<Props> = props => {
               Sign in with <OtherSignInIcon type="facebook" theme="filled" />
               <OtherSignInIcon type="google" theme="outlined" />
             </OtherSignIn>
-            <Link to="/sign-up">Sign up</Link>
+            <Link to="/register">Sign up</Link>
           </OtherActions>
         </form>
       )}
