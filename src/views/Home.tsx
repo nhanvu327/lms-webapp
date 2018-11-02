@@ -4,8 +4,12 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/login">Go to login page</Link>
-        <Link to="/register">Go to register page</Link>
+        <p>
+          <Link to="/login">Go to login page</Link>
+        </p>
+        <p>
+          <Link to="/register">Go to register page</Link>
+        </p>
       </div>
     );
   }

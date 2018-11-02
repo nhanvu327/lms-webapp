@@ -1,9 +1,9 @@
 import React, { Component, Suspense } from "react";
-import { Spin } from "antd";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { theme, ThemeProvider } from "./theme";
 import { Home, Login, Register } from "./routes";
 import { LanguageProvider } from "./containers";
+import { CustomSpinner } from "./components";
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         <LanguageProvider>
           <Router>
-            <Suspense fallback={<Spin />}>
+            <Suspense fallback={<CustomSpinner isFullScreen={true} size="large" />}>
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
