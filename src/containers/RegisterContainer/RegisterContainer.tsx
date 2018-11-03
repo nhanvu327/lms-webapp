@@ -1,5 +1,6 @@
 import React from "react";
 import { RegisterForm, LogoBanner } from "../../components";
+import registerAPI from "../../api/registerAPI";
 import styled from "../../theme";
 
 const Wrapper = styled.div`
@@ -16,10 +17,15 @@ const Wrapper = styled.div`
 `;
 
 const RegisterContainer = () => {
+
+  function handleSubmit(values: any) {
+    registerAPI(values)
+  }
+
   return (
     <Wrapper>
       <LogoBanner />
-      <RegisterForm handleSubmit={values => console.log(values)} />
+      <RegisterForm handleSubmit={handleSubmit} />
     </Wrapper>
   );
 };

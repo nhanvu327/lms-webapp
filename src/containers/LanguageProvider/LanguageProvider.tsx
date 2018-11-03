@@ -8,6 +8,7 @@ import { LocaleProvider } from "antd";
 import { IntlProvider } from "react-intl";
 import vnMessages from "../../i18n/vn.json";
 import enMessages from "../../i18n/en.json";
+import { DEFAULT_LOCALE } from "../../constants/app";
 
 interface IProps {
   children: JSX.Element;
@@ -18,8 +19,7 @@ const messages: any = {
   "en-US": enMessages
 };
 
-addLocaleData(appLocaleVi);
-addLocaleData(appLocaleEn);
+addLocaleData([...appLocaleVi, ...appLocaleEn]);
 
 export const Language = React.createContext({
   locale: null,
@@ -31,7 +31,7 @@ export const Language = React.createContext({
 
 const LanguageProvider = (props: IProps) => {
   const { children } = props;
-  const [locale, setLocale] = useState("vi-VN");
+  const [locale, setLocale] = useState(DEFAULT_LOCALE);
   return (
     <Language.Provider
       value={{
@@ -39,7 +39,7 @@ const LanguageProvider = (props: IProps) => {
         setLocale
       }}
     >
-      <LocaleProvider locale={locale === "vi-VN" ? antdVi : antdEn}>
+      <LocaleProvider locale={locale === DEFAULT_LOCALE ? antdVi : antdEn}>
         <IntlProvider locale={locale} messages={messages[locale]}>
           {React.Children.only(children)}
         </IntlProvider>

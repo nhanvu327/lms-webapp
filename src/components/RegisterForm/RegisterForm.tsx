@@ -10,11 +10,7 @@ const RadioGroup = Radio.Group;
 interface Props {
   theme: IThemeInterface;
   handleSubmit: (
-    values: {
-      email: string;
-      password: string;
-      confirmPassword: string;
-    }
+    values: any
   ) => void;
 }
 
