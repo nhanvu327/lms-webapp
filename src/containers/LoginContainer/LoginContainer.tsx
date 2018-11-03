@@ -1,5 +1,6 @@
 import React from "react";
 import { LoginForm, LogoBanner } from "../../components";
+import loginAPI from "../../api/loginAPI";
 import styled from "../../theme";
 
 const Wrapper = styled.div`
@@ -15,11 +16,27 @@ const Wrapper = styled.div`
   }
 `;
 
-function LoginContainer() {
+interface IProps {
+  history: any
+}
+
+function LoginContainer(props: IProps) {
+  async function handleSubmit(values: any, formikActions: any) {
+    delete values.consent;
+
+    try {
+      const res = await loginAPI(values);
+      props.history.push('/');
+      console.log(res);
+    } catch (err) {
+      formikActions.setSubmitting(false);
+      console.log("hihi");
+    }
+  }
   return (
     <Wrapper>
       <LogoBanner />
-      <LoginForm handleSubmit={values => console.log(values)} />
+      <LoginForm handleSubmit={handleSubmit} />
     </Wrapper>
   );
 }

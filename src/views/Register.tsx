@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   }
 `;
 
-function Login() {
+function Register() {
   return (
     <Wrapper>
       <RegisterContainer />
@@ -27,4 +27,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

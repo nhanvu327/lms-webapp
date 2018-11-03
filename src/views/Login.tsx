@@ -1,4 +1,5 @@
 import React from "react";
+import { RouteComponentProps } from 'react-router-dom';
 import { LoginContainer } from "../containers";
 import { LanguageSwitcher } from "../components";
 import BackgroundLarge from "../assets/images/background-large.jpg";
@@ -18,10 +19,12 @@ const Wrapper = styled.div`
   }
 `;
 
-function Login() {
+interface IProps extends RouteComponentProps {}
+
+function Login(props: IProps) {
   return (
     <Wrapper>
-      <LoginContainer />
+      <LoginContainer history={props.history} />
       <LanguageSwitcher isFixed={true} />
     </Wrapper>
   );

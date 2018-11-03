@@ -1,4 +1,9 @@
 {
   "ENGLISH": "Tiếng anh",
-  "VIETNAMESE": "Tiếng việt"
+  "VIETNAMESE": "Tiếng việt",
+  "FORMS.ERRORS.EMAIL_IS_REQUIRED": "Email is not valid.",
+  "FORMS.ERRORS.REQUIRED": "This field is required.",
+  "FORMS.ERRORS.PASSWORD_NEEDS_MORE_THAN_6_CHARS": "Password needs more than 6 characters",
+  "FORMS.ERRORS.PASSWORD_NOT_MATCH": "Passwords are not the same!",
+  "FORMS.ERRORS.TERMS_CONDITIONS": "You have to agree with our Terms and Conditions!"
 }

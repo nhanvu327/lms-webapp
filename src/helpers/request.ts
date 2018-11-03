@@ -5,7 +5,10 @@ export default async function request(
 ): Promise<Response> {
   let data: any = {
     method,
-    mode: "cors"
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    mode: "cors",
   };
   if (method !== "GET") {
     data = {
@@ -13,9 +16,13 @@ export default async function request(
       body: JSON.stringify(payload)
     };
   }
-  const request: Request = new Request(endpoint, data);
+
+  // const request: Request = new Request(
+  //   `http://localhost:3001${endpoint}`,
+  //   data
+  // );
   try {
-    const res = await fetch(request);
+    const res = await fetch(`http://localhost:3001${endpoint}`, data);
     if ((res.status >= 200 && res.status < 300) || res.status === 401) {
       return res.json();
     } else {
