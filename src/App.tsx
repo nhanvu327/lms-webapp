@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./helpers/configReduxStore";
 import { theme, ThemeProvider } from "./theme";
 import { Home, Login, Register } from "./routes";
 import { LanguageProvider } from "./containers";

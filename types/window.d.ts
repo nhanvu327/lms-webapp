@@ -1,8 +1,3 @@
 interface Window {
-  appLocale: {
-    messages: Object,
-    locale: string,
-    data: any,
-    antd: any
-  };
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any
 }

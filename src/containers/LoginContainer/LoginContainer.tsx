@@ -1,9 +1,12 @@
 import React from "react";
 import { injectIntl, InjectedIntl } from "react-intl";
+import { connect } from "react-redux";
 import { LoginForm, LogoBanner } from "../../components";
 import loginAPI from "../../api/loginAPI";
 import styled from "../../theme";
 import errorCodes from "../../constants/errorCodes";
+import { getProfile } from "../../actions/userActions";
+import { Dispatch } from "redux";
 
 const Wrapper = styled.div`
   padding: ${({ theme }) => theme.spacing.lg};
@@ -21,6 +24,7 @@ const Wrapper = styled.div`
 interface IProps {
   history: any;
   intl: InjectedIntl;
+  dispatchGetProfile: Function;
 }
 
 function LoginContainer(props: IProps) {
@@ -28,7 +32,8 @@ function LoginContainer(props: IProps) {
     delete values.consent;
 
     try {
-      await loginAPI(values);
+      const res = await loginAPI(values);
+      props.dispatchGetProfile(res.payload);
       props.history.push("/");
     } catch (err) {
       formikActions.setSubmitting(false);
@@ -61,4 +66,13 @@ function LoginContainer(props: IProps) {
   );
 }
 
-export default injectIntl(LoginContainer);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    dispatchGetProfile: (data: any) => dispatch(getProfile(data))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(injectIntl(LoginContainer));
