@@ -1,7 +1,9 @@
 import React from "react";
+import { injectIntl, InjectedIntl } from "react-intl";
 import { LoginForm, LogoBanner } from "../../components";
 import loginAPI from "../../api/loginAPI";
 import styled from "../../theme";
+import errorCodes from "../../constants/errorCodes";
 
 const Wrapper = styled.div`
   padding: ${({ theme }) => theme.spacing.lg};
@@ -17,7 +19,8 @@ const Wrapper = styled.div`
 `;
 
 interface IProps {
-  history: any
+  history: any;
+  intl: InjectedIntl;
 }
 
 function LoginContainer(props: IProps) {
@@ -25,12 +28,29 @@ function LoginContainer(props: IProps) {
     delete values.consent;
 
     try {
-      const res = await loginAPI(values);
-      props.history.push('/');
-      console.log(res);
+      await loginAPI(values);
+      props.history.push("/");
     } catch (err) {
       formikActions.setSubmitting(false);
-      console.log("hihi");
+      if (err.error_code === errorCodes.email_not_exist) {
+        formikActions.setErrors({
+          email: props.intl.formatMessage(
+            {
+              id: "FORMS.ERRORS.EMAIL_NOT_EXIST"
+            },
+            {
+              email: values.email
+            }
+          )
+        });
+      }
+      if (err.error_code === errorCodes.password_not_correct) {
+        formikActions.setErrors({
+          password: props.intl.formatMessage({
+            id: "FORMS.ERRORS.PASSWORD_NOT_CORRECT"
+          })
+        });
+      }
     }
   }
   return (
@@ -41,4 +61,4 @@ function LoginContainer(props: IProps) {
   );
 }
 
-export default LoginContainer;
+export default injectIntl(LoginContainer);

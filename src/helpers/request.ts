@@ -26,9 +26,7 @@ export default async function request(
     if ((res.status >= 200 && res.status < 300) || res.status === 401) {
       return res.json();
     } else {
-      return res.json().then(r => {
-        throw new Error(r.error || res.statusText);
-      });
+      return res.json().then(r => Promise.reject(r.error));
     }
   } catch (error) {
     throw new Error(error);

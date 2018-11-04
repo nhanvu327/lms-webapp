@@ -5,5 +5,7 @@
   "FORMS.ERRORS.REQUIRED": "This field is required.",
   "FORMS.ERRORS.PASSWORD_NEEDS_MORE_THAN_6_CHARS": "Password needs more than 6 characters",
   "FORMS.ERRORS.PASSWORD_NOT_MATCH": "Passwords are not the same!",
-  "FORMS.ERRORS.TERMS_CONDITIONS": "You have to agree with our Terms and Conditions!"
+  "FORMS.ERRORS.TERMS_CONDITIONS": "You have to agree with our Terms and Conditions!",
+  "FORMS.ERRORS.EMAIL_NOT_EXIST": "Email {email} does not exist",
+  "FORMS.ERRORS.PASSWORD_NOT_CORRECT": "Password is not correct"
 }
