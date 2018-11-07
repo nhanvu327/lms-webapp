@@ -5,4 +5,7 @@ export {
 export {
   default as LanguageProvider
 } from "./LanguageProvider/LanguageProvider";
+export {
+  default as withPrivateLayout
+} from "./PrivateLayout/PrivateLayout";
 export { Language } from "./LanguageProvider/LanguageProvider";

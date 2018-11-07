@@ -1,32 +1,60 @@
 import React, { StatelessComponent } from "react";
 import { connect } from "react-redux";
 import { Route, RouteProps, Redirect } from "react-router-dom";
+import { Dispatch } from "redux";
+import { message } from "antd";
+import { CustomSpinner } from "../../components";
+import { getProfile } from "../../actions/userActions";
+import getProfileAPI from "../../api/getProfileAPI";
 
 interface IProps extends RouteProps {
   component: StatelessComponent<any>;
   isAuthenticated: Boolean;
+  dispatchGetProfile: (data: any) => void;
 }
 
-const ProtectedRoute: StatelessComponent<IProps> = ({
-  component: Component,
-  isAuthenticated,
-  ...rest
-}) => {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
-        )
+class ProtectedRoute extends React.Component<IProps> {
+  state = {
+    isLoading: true
+  };
+
+  async componentDidMount() {
+    if (!this.props.isAuthenticated) {
+      try {
+        const res = await getProfileAPI();
+        this.props.dispatchGetProfile(res.payload);
+        this.setState({
+          isLoading: false
+        });
+      } catch (err) {
+        this.setState({
+          isLoading: false
+        });
+        message.error(err.message);
       }
-    />
-  );
-};
+    }
+  }
+
+  render() {
+    const { isAuthenticated, component: Component, ...rest } = this.props;
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          isAuthenticated ? (
+            <Component {...props} />
+          ) : this.state.isLoading ? (
+            <CustomSpinner isFullScreen={true} size="large" />
+          ) : (
+            <Redirect
+              to={{ pathname: "/login", state: { from: props.location } }}
+            />
+          )
+        }
+      />
+    );
+  }
+}
 
 const connectStateToProps = (state: any) => {
   const {
@@ -37,4 +65,13 @@ const connectStateToProps = (state: any) => {
   };
 };
 
-export default connect(connectStateToProps)(ProtectedRoute);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    dispatchGetProfile: (data: any) => dispatch(getProfile(data))
+  };
+};
+
+export default connect(
+  connectStateToProps,
+  mapDispatchToProps
+)(ProtectedRoute);

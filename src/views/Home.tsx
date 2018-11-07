@@ -1,12 +1,13 @@
 import React from "react";
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        Welcome
-      </div>
-    );
-  }
+import CallingScreenContainer from "../containers/CallingScreenContainer/CallingScreenContainer";
+import withPrivateLayout from "../containers/PrivateLayout/PrivateLayout";
+
+function Home() {
+  return (
+    <div>
+      <CallingScreenContainer />
+    </div>
+  );
 }
 
-export default Home;
+export default withPrivateLayout(Home);

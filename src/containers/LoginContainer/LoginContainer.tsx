@@ -1,4 +1,5 @@
 import React from "react";
+import { message } from "antd";
 import { injectIntl, InjectedIntl } from "react-intl";
 import { connect } from "react-redux";
 import { LoginForm, LogoBanner } from "../../components";
@@ -48,13 +49,14 @@ function LoginContainer(props: IProps) {
             }
           )
         });
-      }
-      if (err.error_code === errorCodes.password_not_correct) {
+      } else if (err.error_code === errorCodes.password_not_correct) {
         formikActions.setErrors({
           password: props.intl.formatMessage({
             id: "FORMS.ERRORS.PASSWORD_NOT_CORRECT"
           })
         });
+      } else {
+        message.error(err.message || 'Oops, something wrong happened!')
       }
     }
   }

@@ -14,4 +14,8 @@ declare module "react" {
   export function lazy<T>(ctor: () => PromiseLike<T>):  StatelessComponent<RouteComponentProps<any, StaticContext, any>>;
 
   export function useState(value: any): any;
+
+  export function useEffect(method: () => any, statesToChange): any;
+
+  export function useRef(payload): any;
 }

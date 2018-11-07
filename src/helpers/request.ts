@@ -8,7 +8,8 @@ export default async function request(
     headers: {
       "Content-Type": "application/json; charset=utf-8"
     },
-    mode: "cors",
+    credentials: "include",
+    mode: "cors"
   };
   if (method !== "GET") {
     data = {
@@ -22,13 +23,13 @@ export default async function request(
   //   data
   // );
   try {
-    const res = await fetch(`http://localhost:3001${endpoint}`, data);
-    if ((res.status >= 200 && res.status < 300) || res.status === 401) {
+    const res = await fetch(`https://192.168.0.108:3001${endpoint}`, data);
+    if (res.status >= 200 && res.status < 300) {
       return res.json();
     } else {
       return res.json().then(r => Promise.reject(r.error));
     }
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 }
