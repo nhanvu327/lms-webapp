@@ -1,32 +1,46 @@
 import Peer from "peerjs";
+import { Modal } from "antd";
+import roles from "../constants/roles";
 import getUserMedia from "./getUserMedia";
+
+const confirm = Modal.confirm;
 
 class WebRTC {
   private peer_id: String | null;
   private conn: Peer.DataConnection | null;
   private peer: Peer;
   private localStream: any;
-  private remoteVideoElement: HTMLVideoElement;
-  private localVideoElement: HTMLVideoElement;
+  private mainVideoElement: HTMLVideoElement;
+  private smallVideoElement: HTMLVideoElement;
 
-  constructor(id: string, remoteVideoElement: HTMLVideoElement, localVideoElement: HTMLVideoElement) {
+  constructor(
+    id: string,
+    mainVideoElement: HTMLVideoElement,
+    smallVideoElement: HTMLVideoElement,
+    role: number
+  ) {
     const peer = new Peer(id, {
-      host: "192.168.0.108",
+      host: process.env.REACT_APP_IP,
       port: 3001,
       path: "/peerjs",
-      debug: 3
+      debug: 3,
+      secure: true
     });
 
     this.peer_id = null;
     this.conn = null;
-    this.remoteVideoElement = remoteVideoElement;
-    this.localVideoElement = localVideoElement;
+    this.smallVideoElement = smallVideoElement;
+    this.mainVideoElement = mainVideoElement;
     try {
       new getUserMedia().getLocalStream().then((localStream: any) => {
-        this.localStream = localStream
-        this.localVideoElement.srcObject = localStream;
-        console.log(remoteVideoElement, this.localVideoElement, this.localStream, ' this.localVideoElement');
-      })
+        this.localStream = localStream;
+
+        if (role === roles.Teacher) {
+          this.mainVideoElement.srcObject = localStream;
+        } else {
+          this.smallVideoElement.srcObject = localStream;
+        }
+      });
     } catch (e) {
       this.localStream = null;
     }
@@ -47,36 +61,41 @@ class WebRTC {
     });
 
     peer.on("call", call => {
-      const acceptsCall = confirm(
-        "Videocall incoming, do you want to accept it ?"
-      );
+      confirm({
+        title: "Do you want to accept this call?",
+        content: `${call.metadata.username} is calling...`,
+        onOk: () => {
+          call.answer(this.localStream);
 
-      if (acceptsCall) {
-        // Answer the call with your own video/audio stream
-        call.answer(this.localStream);
+          let newSmallVideoElement = document.createElement("video");
+          newSmallVideoElement.className = "small-video";
+          newSmallVideoElement.autoplay = true;
 
-        // Receive data
-        call.on("stream", stream => {
-          // Display the stream of the other user in the peer-camera video element !
-          this.onReceiveStream(stream, remoteVideoElement);
-        });
+          // Receive data
+          call.on("stream", stream => {
+            newSmallVideoElement.src = window.URL.createObjectURL(stream);
+          });
 
-        // Handle when the call finishes
-        call.on("close", function() {
-          alert("The videocall has finished");
-        });
+          const listSmallVideoWrapper = document.getElementById(
+            "list-small-video"
+          );
 
-        // use call.close() to finish a call
-      } else {
-        alert("Call denied !");
-      }
+          if (listSmallVideoWrapper) {
+            listSmallVideoWrapper.appendChild(newSmallVideoElement);
+          }
+
+          // Handle when the call finishes
+          call.on("close", function() {
+            alert("The videocall has finished");
+          });
+        },
+        onCancel: () => {
+          alert("Call denied !");
+        }
+      });
     });
 
     this.peer = peer;
-  }
-
-  onReceiveStream(remoteStream: any, videoElement: HTMLVideoElement) {
-    videoElement.src = window.URL.createObjectURL(remoteStream);
   }
 
   handleMessage(data: any) {
@@ -89,26 +108,35 @@ class WebRTC {
         peer_id,
         {
           metadata: {
-            username: username
+            username
           }
         }
       );
 
-      this.conn.on("data", this.handleMessage);
+      if (this.conn.open) {
+        this.conn.on("data", this.handleMessage);
+      }
     } else {
-      alert("You need to provide a peer to connect with !");
-      return false;
+      window.Sentry.captureMessage("There is no peer id");
     }
   }
 
-  call(peer_id: string) {
+  call(username: string, peer_id: string) {
     console.log("Calling to " + peer_id);
 
-    var call = this.peer.call(peer_id, this.localStream);
+    const call = this.peer.call(peer_id, this.localStream, {
+      metadata: {
+        username
+      }
+    });
 
     call.on("stream", remoteStream => {
-      this.onReceiveStream(remoteStream, this.remoteVideoElement);
+      this.mainVideoElement.src = window.URL.createObjectURL(remoteStream);
     });
+  }
+
+  listAllConnections() {
+    console.log(this.peer.connections);
   }
 }
 

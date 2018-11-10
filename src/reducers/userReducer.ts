@@ -1,10 +1,10 @@
-import { GET_PROFILE } from "../constants/actionTypes";
+import { GET_PROFILE, REMOVE_PROFILE } from "../constants/actionTypes";
 
 const initialState = {
   profile: null
 };
 
-export default (
+const userReducer: any = (
   state = initialState,
   action: { type: string; payload: Object }
 ) => {
@@ -12,9 +12,18 @@ export default (
     case GET_PROFILE:
       return {
         ...state,
-        ...action.payload
+        profile: {
+          ...action.payload
+        }
+      };
+    case REMOVE_PROFILE:
+      return {
+        ...state,
+        profile: null
       };
     default:
       return state;
   }
 };
+
+export default userReducer;

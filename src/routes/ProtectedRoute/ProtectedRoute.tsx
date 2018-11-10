@@ -2,7 +2,6 @@ import React, { StatelessComponent } from "react";
 import { connect } from "react-redux";
 import { Route, RouteProps, Redirect } from "react-router-dom";
 import { Dispatch } from "redux";
-import { message } from "antd";
 import { CustomSpinner } from "../../components";
 import { getProfile } from "../../actions/userActions";
 import getProfileAPI from "../../api/getProfileAPI";
@@ -22,7 +21,7 @@ class ProtectedRoute extends React.Component<IProps> {
     if (!this.props.isAuthenticated) {
       try {
         const res = await getProfileAPI();
-        this.props.dispatchGetProfile(res.payload);
+        this.props.dispatchGetProfile(res.payload.profile);
         this.setState({
           isLoading: false
         });
@@ -30,7 +29,6 @@ class ProtectedRoute extends React.Component<IProps> {
         this.setState({
           isLoading: false
         });
-        message.error(err.message);
       }
     }
   }

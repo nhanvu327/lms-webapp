@@ -7,5 +7,6 @@
   "FORMS.ERRORS.PASSWORD_NOT_MATCH": "Passwords are not the same!",
   "FORMS.ERRORS.TERMS_CONDITIONS": "You have to agree with our Terms and Conditions!",
   "FORMS.ERRORS.EMAIL_NOT_EXIST": "Email {email} does not exist",
-  "FORMS.ERRORS.PASSWORD_NOT_CORRECT": "Password is not correct"
+  "FORMS.ERRORS.PASSWORD_NOT_CORRECT": "Password is not correct",
+  "ERRORS.OOPS": "Oops! Something went wrong!"
 }

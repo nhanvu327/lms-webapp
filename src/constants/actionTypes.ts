@@ -1,1 +1,2 @@
 export const GET_PROFILE = 'GET_PROFILE';
+export const REMOVE_PROFILE = 'REMOVE_PROFILE';

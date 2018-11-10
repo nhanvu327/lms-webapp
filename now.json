@@ -1,11 +1,15 @@
 {
-    "type": "static",
-    "static": {
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    }
+  "type": "static",
+  "static": {
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "env": {
+    "REACT_APP_IP": "lms-server-staging.herokuapp.com",
+    "REACT_APP_SENTRY_KEY": "https://1eb6d95377504cdfb3fd3c6629548b7d@sentry.io/1318613"
   }
+}

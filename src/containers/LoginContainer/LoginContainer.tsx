@@ -7,6 +7,7 @@ import loginAPI from "../../api/loginAPI";
 import styled from "../../theme";
 import errorCodes from "../../constants/errorCodes";
 import { getProfile } from "../../actions/userActions";
+import localStorage from "../../services/localStorage";
 import { Dispatch } from "redux";
 
 const Wrapper = styled.div`
@@ -34,7 +35,8 @@ function LoginContainer(props: IProps) {
 
     try {
       const res = await loginAPI(values);
-      props.dispatchGetProfile(res.payload);
+      props.dispatchGetProfile(res.payload.profile);
+      localStorage.saveItem('smartlearning-token',res.payload.token);
       props.history.push("/");
     } catch (err) {
       formikActions.setSubmitting(false);

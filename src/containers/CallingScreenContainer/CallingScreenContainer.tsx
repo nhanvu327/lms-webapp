@@ -1,51 +1,74 @@
 import React from "react";
 import WebRTC from "../../services/peer";
-import { connect } from "react-redux";
+import { Video } from "../../components";
+import {
+  getProfileSelector,
+  getIsTeacherSelector,
+  getIsStudentSelector
+} from "../../selectors/User/profileSelector";
+import { connect, DispatchProp } from "react-redux";
+import { AnyAction } from "redux";
 
 interface IProps {
-  profile: any;
+  profile?: any;
+  isTeacher: boolean;
+  peerId: string;
+  isStudent: boolean;
 }
 
 class CallingScreenContainer extends React.Component<IProps> {
-  private localVideoEl: any;
-  private remoteVideoEl: any;
+  private mainVideoEl: any;
+  private smallVideoEl: any;
   private webrtc: any;
 
-  constructor(props: IProps) {
+  constructor(props: IProps & DispatchProp<AnyAction>) {
     super(props);
-    this.localVideoEl = React.createRef();
-    this.remoteVideoEl = React.createRef();
+    this.mainVideoEl = React.createRef();
+    this.smallVideoEl = React.createRef();
   }
 
   componentDidMount() {
     const webrtc = new WebRTC(
       this.props.profile.id,
-      this.remoteVideoEl.current,
-      this.localVideoEl.current
+      this.mainVideoEl.current,
+      this.smallVideoEl.current,
+      this.props.profile.role
     );
     this.webrtc = webrtc;
+
+    if (this.props.isStudent) {
+      webrtc.listAllConnections();
+      webrtc.initializeConnection(this.props.profile.name, this.props.peerId); 
+    }
   }
 
   handleCall = (peerId: string) => {
-    this.webrtc.initializeConnection(this.props.profile.name, peerId);
-    this.webrtc.call(peerId);
+    if (this.props.isStudent) {
+      this.webrtc.call(this.props.profile.name, peerId);
+    }
   };
 
   render() {
+    const { isTeacher, isStudent, peerId } = this.props;
     return (
-      <div>
-        <button onClick={() => this.handleCall("11")}>Calling Nhan</button>
-        <video autoPlay={true} muted ref={this.localVideoEl} />
-        <video autoPlay={true} ref={this.remoteVideoEl} />
-      </div>
+      <Video
+        isTeacher={isTeacher}
+        isStudent={isStudent}
+        handleCall={() => this.handleCall(peerId)}
+        mainVideoEl={this.mainVideoEl}
+        smallVideoEl={this.smallVideoEl}
+      />
     );
   }
 }
 
 const mapStateToProps = (state: any) => {
   return {
-    profile: state.User.profile
+    profile: getProfileSelector(state),
+    isTeacher: getIsTeacherSelector(state),
+    isStudent: getIsStudentSelector(state),
+    peerId: "11"
   };
 };
 
-export default connect(mapStateToProps)(CallingScreenContainer);
+export default connect(mapStateToProps)(CallingScreenContainer as any);

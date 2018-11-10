@@ -6,5 +6,5 @@ export default function registerAPI(payload: {
   password: string;
   confirmPassword: string;
 }): Promise<Response> {
-  return request(REGISTER, "POST", payload);
+  return request(REGISTER, "POST", payload, false);
 }

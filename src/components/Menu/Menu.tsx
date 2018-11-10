@@ -1,9 +1,11 @@
-import React from "react";
+import React, { StatelessComponent } from "react";
 import { Menu as AntdMenu, Icon } from "antd";
 
-const Menu = () => {
+interface IProps {}
+
+const Menu: StatelessComponent<IProps> = ({}) => {
   return (
-    <AntdMenu theme="dark" mode="vertical" defaultSelectedKeys={["4"]}>
+    <AntdMenu theme="dark" mode="vertical" defaultSelectedKeys={["1"]}>
       <AntdMenu.Item key="1">
         <Icon type="message" />
         <span className="nav-text">Inbox</span>

@@ -5,5 +5,5 @@ export default function loginAPI(payload: {
   email: string;
   password: string;
 }): Promise<any> {
-  return request(LOGIN, "POST", payload);
+  return request(LOGIN, "POST", payload, false);
 }
