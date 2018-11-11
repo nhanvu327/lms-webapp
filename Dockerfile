@@ -2,7 +2,7 @@
 FROM mhart/alpine-node:10
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /usr/src
 
 # Copy package manager files to the working directory and run install
 COPY package.json yarn.lock ./
