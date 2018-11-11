@@ -1,8 +1,11 @@
 # Use Node.js version 10
-FROM mhart/alpine-node:8.12.0
+FROM mhart/alpine-node:10
 
 # Set the working directory
 WORKDIR /usr/src
+
+RUN apt-get update
+RUN apt-get -y install git
 
 # Copy package manager files to the working directory and run install
 COPY package.json yarn.lock ./
