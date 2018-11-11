@@ -2,10 +2,7 @@
 FROM mhart/alpine-node:10
 
 # Set the working directory
-WORKDIR /usr/src
-
-RUN apt-get update
-RUN apt-get -y install git
+WORKDIR /app
 
 # Copy package manager files to the working directory and run install
 COPY package.json yarn.lock ./
