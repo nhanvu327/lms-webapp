@@ -1,6 +1,5 @@
 import localStorage from "../services/localStorage";
-import store from "../helpers/configReduxStore";
-import { removeProfile } from "../actions/userActions";
+import { LOCALSTORAGE_TOKEN } from "../constants/app";
 
 export default async function request(
   endpoint: string,
@@ -13,7 +12,7 @@ export default async function request(
     headers: {
       "Content-Type": "application/json; charset=utf-8",
       Authorization: isPrivate
-        ? `Bearer ${localStorage.getItem("smartlearning-token")}`
+        ? `Bearer ${localStorage.getItem(LOCALSTORAGE_TOKEN)}`
         : null
     },
     credentials: "include",
@@ -28,14 +27,18 @@ export default async function request(
 
   try {
     const res = await fetch(
-      `https://${process.env.REACT_APP_IP}${endpoint}`,
+      `https://${process.env.REACT_APP_IP}${
+        process.env.NODE_ENV === "development"
+          ? `:${process.env.REACT_APP_PORT}`
+          : ""
+      }${endpoint}`,
       data
     );
     if (res.status >= 200 && res.status < 300) {
       return res.json();
     } else {
       if (res.status === 401) {
-        store.dispatch(removeProfile());
+        window.location.href = "/login";
       }
       return res.json().then(r => Promise.reject(r.error));
     }

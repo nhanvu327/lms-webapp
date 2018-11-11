@@ -6,6 +6,7 @@ import { LoginForm, LogoBanner } from "../../components";
 import loginAPI from "../../api/loginAPI";
 import styled from "../../theme";
 import errorCodes from "../../constants/errorCodes";
+import { LOCALSTORAGE_TOKEN } from "../../constants/app";
 import { getProfile } from "../../actions/userActions";
 import localStorage from "../../services/localStorage";
 import { Dispatch } from "redux";
@@ -36,7 +37,7 @@ function LoginContainer(props: IProps) {
     try {
       const res = await loginAPI(values);
       props.dispatchGetProfile(res.payload.profile);
-      localStorage.saveItem('smartlearning-token',res.payload.token);
+      localStorage.saveItem(LOCALSTORAGE_TOKEN, res.payload.token);
       props.history.push("/");
     } catch (err) {
       formikActions.setSubmitting(false);
@@ -58,7 +59,7 @@ function LoginContainer(props: IProps) {
           })
         });
       } else {
-        message.error(err.message || 'Oops, something wrong happened!')
+        message.error(err.message || "Oops, something wrong happened!");
       }
     }
   }

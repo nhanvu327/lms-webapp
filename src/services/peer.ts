@@ -21,7 +21,7 @@ class WebRTC {
   ) {
     const peer = new Peer(id, {
       host: process.env.REACT_APP_IP,
-      port: 3001,
+      port: process.env.NODE_ENV === 'development' ? 3001 : 80,
       path: "/peerjs",
       debug: 3,
       secure: true

@@ -15,6 +15,10 @@ class LocalStorage {
       return retrievedData;
     }
   }
+
+  removeItem(name: string) {
+    localStorage.removeItem(name);
+  }
 }
 
 export default new LocalStorage();
