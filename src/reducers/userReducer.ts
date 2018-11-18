@@ -1,4 +1,4 @@
-import { GET_PROFILE, REMOVE_PROFILE } from "../constants/actionTypes";
+import { SAVE_PROFILE, REMOVE_PROFILE } from "../constants/actionTypes";
 
 const initialState = {
   profile: null
@@ -9,7 +9,7 @@ const userReducer: any = (
   action: { type: string; payload: Object }
 ) => {
   switch (action.type) {
-    case GET_PROFILE:
+    case SAVE_PROFILE:
       return {
         ...state,
         profile: {

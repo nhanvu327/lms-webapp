@@ -1,8 +1,8 @@
-import { GET_PROFILE, REMOVE_PROFILE } from "../constants/actionTypes";
+import { SAVE_PROFILE, REMOVE_PROFILE } from "../constants/actionTypes";
 
-export function getProfile(payload: any) {
+export function saveProfile(payload: any) {
   return {
-    type: GET_PROFILE,
+    type: SAVE_PROFILE,
     payload
   };
 }

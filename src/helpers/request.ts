@@ -6,7 +6,7 @@ export default async function request(
   method: string,
   payload?: Object,
   isPrivate: boolean = true
-): Promise<Response> {
+): Promise<any> {
   let data: any = {
     method,
     headers: {

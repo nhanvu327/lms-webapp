@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { Route, RouteProps, Redirect } from "react-router-dom";
 import { Dispatch } from "redux";
 import { CustomSpinner } from "../../components";
-import { getProfile } from "../../actions/userActions";
+import { saveProfile } from "../../actions/userActions";
 import getProfileAPI from "../../api/getProfileAPI";
 
 interface IProps extends RouteProps {
   component: StatelessComponent<any>;
   isAuthenticated: Boolean;
-  dispatchGetProfile: (data: any) => void;
+  dispatchSaveProfile: (data: any) => void;
 }
 
 class ProtectedRoute extends React.Component<IProps> {
@@ -21,7 +21,7 @@ class ProtectedRoute extends React.Component<IProps> {
     if (!this.props.isAuthenticated) {
       try {
         const res = await getProfileAPI();
-        this.props.dispatchGetProfile(res.payload.profile);
+        this.props.dispatchSaveProfile(res.payload.profile);
         this.setState({
           isLoading: false
         });
@@ -65,7 +65,7 @@ const connectStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    dispatchGetProfile: (data: any) => dispatch(getProfile(data))
+    dispatchSaveProfile: (data: any) => dispatch(saveProfile(data))
   };
 };
 

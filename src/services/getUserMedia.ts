@@ -3,7 +3,7 @@ class GetUserMedia {
 
   constructor(constraints?: MediaStreamConstraints) {
     this.constraints = constraints || {
-      audio: false,
+      audio: true,
       video: true
     };
   }

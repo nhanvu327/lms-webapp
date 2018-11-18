@@ -7,7 +7,7 @@ import loginAPI from "../../api/loginAPI";
 import styled from "../../theme";
 import errorCodes from "../../constants/errorCodes";
 import { LOCALSTORAGE_TOKEN } from "../../constants/app";
-import { getProfile } from "../../actions/userActions";
+import { saveProfile } from "../../actions/userActions";
 import localStorage from "../../services/localStorage";
 import { Dispatch } from "redux";
 
@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 interface IProps {
   history: any;
   intl: InjectedIntl;
-  dispatchGetProfile: Function;
+  dispatchSaveProfile: Function;
 }
 
 function LoginContainer(props: IProps) {
@@ -36,7 +36,7 @@ function LoginContainer(props: IProps) {
 
     try {
       const res = await loginAPI(values);
-      props.dispatchGetProfile(res.payload.profile);
+      props.dispatchSaveProfile(res.payload.profile);
       localStorage.saveItem(LOCALSTORAGE_TOKEN, res.payload.token);
       props.history.push("/");
     } catch (err) {
@@ -73,7 +73,7 @@ function LoginContainer(props: IProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    dispatchGetProfile: (data: any) => dispatch(getProfile(data))
+    dispatchSaveProfile: (data: any) => dispatch(saveProfile(data))
   };
 };
 

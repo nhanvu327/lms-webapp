@@ -1,4 +1,5 @@
 import React from "react";
+import { RouteComponentProps } from 'react-router-dom';
 import { RegisterContainer } from "../containers";
 import { LanguageSwitcher } from "../components";
 import BackgroundLarge from "../assets/images/background-large.jpg";
@@ -17,11 +18,12 @@ const Wrapper = styled.div`
     background-image: url(${BackgroundLarge});
   }
 `;
+interface IProps extends RouteComponentProps {}
 
-function Register() {
+function Register(props: IProps) {
   return (
     <Wrapper>
-      <RegisterContainer />
+      <RegisterContainer  history={props.history}  />
       <LanguageSwitcher isFixed={true} />
     </Wrapper>
   );
